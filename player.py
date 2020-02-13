@@ -84,7 +84,6 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         pass 
     def SliderMov(self):
         pos=self.ProgressBar.value()
-        print(pos)
         self.player.setPosition(int(pos/10000*self.player.duration()))
         pass
     def TimeBar(self):
