@@ -22,15 +22,13 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
 
         self.timer1=QTimer(self)
         self.timer1.timeout.connect(self.TimeText)
-        #self.timer1.start(100)
-
         self.timer2=QTimer(self)
         self.timer2.timeout.connect(self.TimeBar)
+
         self.ProgressBar.sliderPressed.connect(self.SliderPre)
         self.ProgressBar.sliderReleased.connect(self.SliderRel)
         self.ProgressBar.sliderMoved.connect(self.SliderMov)
 
-        #self.TimeTable.cellClicked.connect(self.TableClick)
         self.TimeTable.setFocusPolicy(Qt.NoFocus)
         self.DelLine.clicked.connect(self.DeleteLine)
 

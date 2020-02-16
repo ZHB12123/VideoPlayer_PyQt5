@@ -8,18 +8,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets,QtMultimedia,QtMultimediaWidgets
-from PyQt5.QtWidgets import QAbstractItemView,QTableWidgetItem
+from PyQt5.QtWidgets import QAbstractItemView,QTableWidgetItem,QApplication
 
 class Ui_PlayerForm(object):
     def setupUi(self, PlayerForm):
         PlayerForm.setObjectName("PlayerForm")
-        PlayerForm.resize(1530, 900)
-        
-        '''
-        self.graphicsView = QtWidgets.QGraphicsView(PlayerForm)
-        self.graphicsView.setGeometry(QtCore.QRect(0, 10, 1281, 651))
-        self.graphicsView.setObjectName("graphicsView")
-        '''
+        desktop = QApplication.desktop()
+        PlayerForm.resize(desktop.width()-200, desktop.height()-100)
+
         self.vw = QtMultimediaWidgets.QVideoWidget(PlayerForm)
         self.vw.setGeometry(QtCore.QRect(10, 10, 1280, 720))
         self.vw.setObjectName("graphicsView")
