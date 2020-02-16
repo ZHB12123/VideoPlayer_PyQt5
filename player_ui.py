@@ -13,7 +13,8 @@ from PyQt5.QtWidgets import QAbstractItemView,QTableWidgetItem
 class Ui_PlayerForm(object):
     def setupUi(self, PlayerForm):
         PlayerForm.setObjectName("PlayerForm")
-        PlayerForm.resize(1527, 900)
+        PlayerForm.resize(1530, 900)
+        
         '''
         self.graphicsView = QtWidgets.QGraphicsView(PlayerForm)
         self.graphicsView.setGeometry(QtCore.QRect(0, 10, 1281, 651))
@@ -27,7 +28,7 @@ class Ui_PlayerForm(object):
         self.player.setVideoOutput(self.vw)
 
         self.splitter = QtWidgets.QSplitter(PlayerForm)
-        self.splitter.setGeometry(QtCore.QRect(500, 780, 251, 31))
+        self.splitter.setGeometry(QtCore.QRect(500, 780, 250, 30))
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
         self.PauseButton = QtWidgets.QPushButton(self.splitter)
@@ -37,16 +38,8 @@ class Ui_PlayerForm(object):
         self.StopButton = QtWidgets.QPushButton(self.splitter)
         self.StopButton.setObjectName("Stop")
 
-        self.ProgressBar = QtWidgets.QSlider(PlayerForm)
-        self.ProgressBar.setGeometry(QtCore.QRect(10, 740, 1280, 22))
-        self.ProgressBar.setOrientation(QtCore.Qt.Horizontal)
-        self.ProgressBar.setObjectName("ProgressBar")
-        
-        self.FileOpen = QtWidgets.QPushButton(PlayerForm)
-        self.FileOpen.setGeometry(QtCore.QRect(10, 800, 75, 31))
-        self.FileOpen.setObjectName("FileOpen")
         self.splitter_2 = QtWidgets.QSplitter(PlayerForm)
-        self.splitter_2.setGeometry(QtCore.QRect(500, 820, 251, 31))
+        self.splitter_2.setGeometry(QtCore.QRect(500, 820, 250, 30))
         self.splitter_2.setOrientation(QtCore.Qt.Horizontal)
         self.splitter_2.setObjectName("splitter_2")
         self.SubStart = QtWidgets.QPushButton(self.splitter_2)
@@ -55,29 +48,42 @@ class Ui_PlayerForm(object):
         self.SubEnd.setObjectName("SubEnd")
         self.SubConfirm = QtWidgets.QPushButton(self.splitter_2)
         self.SubConfirm.setObjectName("OK")
-        self.StartTime = QtWidgets.QLabel(PlayerForm)
-        self.StartTime.setGeometry(QtCore.QRect(510, 860, 54, 20))
+
+        self.splitter_3=QtWidgets.QSplitter(PlayerForm)
+        self.splitter_3.setGeometry(QtCore.QRect(505, 850, 160, 30))
+        self.splitter_2.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter_2.setObjectName("splitter_3")
+        self.StartTime = QtWidgets.QLabel(self.splitter_3)
         self.StartTime.setObjectName("StartTime")
-        self.EndTime = QtWidgets.QLabel(PlayerForm)
-        self.EndTime.setGeometry(QtCore.QRect(600, 860, 54, 20))
+        self.EndTime = QtWidgets.QLabel(self.splitter_3)
         self.EndTime.setObjectName("EndTime")
 
+        self.ProgressBar = QtWidgets.QSlider(PlayerForm)
+        self.ProgressBar.setGeometry(QtCore.QRect(10, 740, 1280, 20))
+        self.ProgressBar.setOrientation(QtCore.Qt.Horizontal)
+        self.ProgressBar.setObjectName("ProgressBar")
+    
+        self.FileOpen = QtWidgets.QPushButton(PlayerForm)
+        self.FileOpen.setGeometry(QtCore.QRect(10, 800, 75, 30))
+        self.FileOpen.setObjectName("FileOpen")
+
         self.PlayTime = QtWidgets.QLabel(PlayerForm)
-        self.PlayTime.setGeometry(QtCore.QRect(20, 770, 54, 20))
+        self.PlayTime.setGeometry(QtCore.QRect(20, 770, 55, 20))
         self.PlayTime.setObjectName("0.00")
         #表格
         self.TimeTable = QtWidgets.QTableWidget(PlayerForm)
-        self.TimeTable.setGeometry(QtCore.QRect(1300, 10, 217, 750))
+        self.TimeTable.setGeometry(QtCore.QRect(1300, 10, 220, 750))
         self.TimeTable.setObjectName("TimeTable")
         self.TimeTable.setColumnCount(2)
         self.TimeTable.setRowCount(0)
-        self.TimeTable.setColumnWidth(0,88)
-        self.TimeTable.setColumnWidth(1,88)
+        #self.TimeTable.setColumnWidth(0,88)
+        #self.TimeTable.setColumnWidth(1,88)
         self.TimeTable.setShowGrid(True)
         self.TimeTable.setHorizontalHeaderLabels(['Start','End'])
         self.TimeTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
         self.DelLine = QtWidgets.QPushButton(PlayerForm)
-        self.DelLine.setGeometry(QtCore.QRect(1370, 780, 75, 23))
+        self.DelLine.setGeometry(QtCore.QRect(1370, 780, 75, 25))
         self.DelLine.setObjectName("DelLine")
 
         self.retranslateUi(PlayerForm)

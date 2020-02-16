@@ -10,6 +10,7 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
     def __init__(self, parent=None):
         super(MyMainForm,self).__init__(parent)
         self.setupUi(self)
+        self.setMinimumSize(1530/2,900/2)
 
         self.PauseButton.clicked.connect(self.VideoPause)
         self.PlayButton.clicked.connect(self.VideoPlay)
@@ -33,7 +34,7 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         self.TimeTable.setFocusPolicy(Qt.NoFocus)
         self.DelLine.clicked.connect(self.DeleteLine)
 
-        self.setFocusPolicy(Qt.ClickFocus)#通过鼠标点击可以转移焦点。
+        self.setFocusPolicy(Qt.ClickFocus)  #通过鼠标点击可以转移焦点。
         self.OpenVideo()
         
         self.ProgressBar.setMinimum(0)
@@ -45,6 +46,17 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         self.SubStartPoint=0
         self.SubEndPoint=0
         self.SubNum=1
+
+    def resizeEvent(self,evt):  #当窗口大小改变时触发
+        self.vw.setGeometry(self.width()*10/1530,self.height()*10/900,self.width()*1280/1530,self.height()*720/900)
+        self.splitter.setGeometry(self.width()*500/1530,self.height()*780/900,self.width()*250/1530,self.height()*30/900)
+        self.splitter_2.setGeometry(self.width()*500/1530,self.height()*820/900,self.width()*250/1530,self.height()*30/900)
+        self.splitter_3.setGeometry(self.width()*505/1530,self.height()*850/900,self.width()*160/1530,self.height()*30/900)
+        self.ProgressBar.setGeometry(self.width()*10/1530,self.height()*740/900,self.width()*1280/1530,self.height()*20/900)
+        self.FileOpen.setGeometry(self.width()*10/1530,self.height()*800/900,self.width()*75/1530,self.height()*30/900)
+        self.PlayTime.setGeometry(self.width()*20/1530,self.height()*770/900,self.width()*55/1530,self.height()*20/900)
+        self.TimeTable.setGeometry(self.width()*1300/1530,self.height()*10/900,self.width()*220/1530,self.height()*750/900)
+        self.DelLine.setGeometry(self.width()*1370/1530,self.height()*780/900,self.width()*75/1530,self.height()*25/900)
 
     def OpenVideo(self):
         File=QtWidgets.QFileDialog.getOpenFileUrl()[0]
