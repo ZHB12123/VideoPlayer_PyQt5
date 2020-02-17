@@ -82,6 +82,10 @@ class Ui_PlayerForm(object):
         self.DelLine.setGeometry(QtCore.QRect(1370, 780, 75, 25))
         self.DelLine.setObjectName("DelLine")
 
+        self.SaveLine = QtWidgets.QPushButton(PlayerForm)
+        self.SaveLine.setGeometry(QtCore.QRect(1370, 820, 75, 25))
+        self.SaveLine.setObjectName("SaveLine")
+
         self.retranslateUi(PlayerForm)
         QtCore.QMetaObject.connectSlotsByName(PlayerForm)
 
@@ -99,3 +103,4 @@ class Ui_PlayerForm(object):
         self.EndTime.setText(_translate("PlayerForm", ""))
         self.PlayTime.setText(_translate("PlayerForm", "TextLabel"))
         self.DelLine.setText(_translate("Form", "DelLine"))
+        self.SaveLine.setText(_translate("Form", "SaveLine"))

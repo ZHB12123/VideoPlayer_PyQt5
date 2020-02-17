@@ -31,6 +31,7 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
 
         self.TimeTable.setFocusPolicy(Qt.NoFocus)
         self.DelLine.clicked.connect(self.DeleteLine)
+        self.SaveLine.clicked.connect(self.SaveSubTimeline)
 
         self.setFocusPolicy(Qt.ClickFocus)  #通过鼠标点击可以转移焦点。
         self.OpenVideo()
@@ -55,6 +56,7 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         self.PlayTime.setGeometry(self.width()*20/1530,self.height()*770/900,self.width()*55/1530,self.height()*20/900)
         self.TimeTable.setGeometry(self.width()*1300/1530,self.height()*10/900,self.width()*220/1530,self.height()*750/900)
         self.DelLine.setGeometry(self.width()*1370/1530,self.height()*780/900,self.width()*75/1530,self.height()*25/900)
+        self.SaveLine.setGeometry(self.width()*1370/1530,self.height()*820/900,self.width()*75/1530,self.height()*25/900)
 
     def OpenVideo(self):
         File=QtWidgets.QFileDialog.getOpenFileUrl()[0]
@@ -146,6 +148,13 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
             self.vw.setFocus()
         except:
             pass
+    def SaveSubTimeline(self):
+        with open("SubTimeline.csv","w") as f:
+            f.write("The start time,The end time,\n")
+        with open("SubTimeline.csv","a") as f:
+            for time in self.SubData:
+                f.write(str(time[0])+","+str(time[1])+",\n")
+        pass
 
     def keyPressEvent(self,evt):
         #print(evt.key())
