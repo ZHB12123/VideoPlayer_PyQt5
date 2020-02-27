@@ -1,4 +1,4 @@
-# VidoePlayer_PyQt5
+# VideoPlayer_PyQt5
  A video player and some practical functions.
 
 # If you want to run the project,run player.py.
