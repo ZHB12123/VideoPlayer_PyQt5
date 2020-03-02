@@ -33,6 +33,8 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         self.SaveLine.clicked.connect(self.SaveSubTimeline)
 
         self.setFocusPolicy(Qt.ClickFocus)  #通过鼠标点击可以转移焦点。
+
+        self.FileName=""
         self.OpenVideo()
         
         self.ProgressBar.setMinimum(0)
@@ -44,8 +46,7 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         self.SubStartPoint=0
         self.SubEndPoint=0
         self.SubNum=1
-
-
+        
 
     def resizeEvent(self,evt):  #当窗口大小改变时触发
         self.vw.setGeometry(self.width()*10/1530,self.height()*10/900,self.width()*1280/1530,self.height()*720/900)
@@ -68,6 +69,9 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
             self.timer2.start(100)
             self.VideoPlay()
             self.setWindowTitle(File.fileName())
+            self.FileName=File.fileName()
+            print(self.FileName)
+
 
     def VideoPause(self):
         self.player.pause()
@@ -126,7 +130,8 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         pass
     def _SubConfirm(self):
         if self.SubEndPoint>self.SubStartPoint:
-            self.SubData.append([self.SubStartPoint,self.SubEndPoint,self.vw.x0,self.vw.y0,self.vw.x1,self.vw.y1,self.vw.width(),self.vw.height()])
+            self.SubData.append([self.SubStartPoint,self.SubEndPoint,self.vw.x0+self.vw.x(),self.vw.y0-self.vw.y(),\
+                self.vw.x1+self.vw.x(),self.vw.y1-self.vw.y(),self.vw.width(),self.vw.height()])
             row = self.TimeTable.rowCount()
             self.TimeTable.insertRow(row)
             item_start=QTableWidgetItem(str(self.SubStartPoint))
@@ -148,9 +153,10 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         except:
             pass
     def SaveSubTimeline(self):
-        with open("SubTimeline.csv","w") as f:
-            f.write("The start time,The end time,x0,y0,x1,y1,width,height\n")
-        with open("SubTimeline.csv","a") as f:
+        print(self.FileName)
+        with open(self.FileName+".csv","w") as f:
+            f.write("StartTime,EndTime,x0,y0,x1,y1,width,height,\n")
+        with open(self.FileName+".csv","a") as f:
             for data in self.SubData:
                 f.write(str(data[0])+","+str(data[1])+","+str(data[2])+","+str(data[3])+","+str(data[4])+\
                     ","+str(data[5])+","+str(data[6])+","+str(data[7])+",\n")

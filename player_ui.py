@@ -50,7 +50,7 @@ class VideoView(QtMultimediaWidgets.QVideoWidget):  #包含在视频上画框的
         self.x0 = event.x()+self.x()
         self.y0 = event.y()+self.y()
         self.SubtitleBox.setParameters(0,0,0,0)
-        print(self.x0,self.y0)
+        
     #鼠标释放事件
     def mouseReleaseEvent(self,event):
         self.flag = False
