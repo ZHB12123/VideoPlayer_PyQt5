@@ -1,9 +1,8 @@
 import sys
-
 from PyQt5 import QtCore, QtGui, QtWidgets,QtMultimedia,QtMultimediaWidgets
 from PyQt5.QtWidgets import QApplication,QMainWindow,QAbstractItemView,QTableWidgetItem
 from player_ui import Ui_PlayerForm
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt,QRect
 from PyQt5.QtCore import QTimer
 
 class MyMainForm(QMainWindow,Ui_PlayerForm):
@@ -46,6 +45,8 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         self.SubEndPoint=0
         self.SubNum=1
 
+
+
     def resizeEvent(self,evt):  #当窗口大小改变时触发
         self.vw.setGeometry(self.width()*10/1530,self.height()*10/900,self.width()*1280/1530,self.height()*720/900)
         self.splitter.setGeometry(self.width()*500/1530,self.height()*780/900,self.width()*250/1530,self.height()*30/900)
@@ -71,7 +72,6 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
     def VideoPause(self):
         self.player.pause()
         self.vw.setFocus()#将焦点转移至视频播放页面方便监听键盘的空格键事件。
-        
         pass
 
     def VideoPlay(self):
@@ -126,7 +126,7 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
         pass
     def _SubConfirm(self):
         if self.SubEndPoint>self.SubStartPoint:
-            self.SubData.append([self.SubStartPoint,self.SubEndPoint])
+            self.SubData.append([self.SubStartPoint,self.SubEndPoint,self.vw.x0,self.vw.y0,self.vw.x1,self.vw.y1,self.vw.width(),self.vw.height()])
             row = self.TimeTable.rowCount()
             self.TimeTable.insertRow(row)
             item_start=QTableWidgetItem(str(self.SubStartPoint))
@@ -144,16 +144,16 @@ class MyMainForm(QMainWindow,Ui_PlayerForm):
             column = self.TimeTable.selectedItems()[0].column()       #获取选中文本所在的列
             self.TimeTable.removeRow(row)
             del(self.SubData[row])
-            
             self.vw.setFocus()
         except:
             pass
     def SaveSubTimeline(self):
         with open("SubTimeline.csv","w") as f:
-            f.write("The start time,The end time,\n")
+            f.write("The start time,The end time,x0,y0,x1,y1,width,height\n")
         with open("SubTimeline.csv","a") as f:
-            for time in self.SubData:
-                f.write(str(time[0])+","+str(time[1])+",\n")
+            for data in self.SubData:
+                f.write(str(data[0])+","+str(data[1])+","+str(data[2])+","+str(data[3])+","+str(data[4])+\
+                    ","+str(data[5])+","+str(data[6])+","+str(data[7])+",\n")
         pass
 
     def keyPressEvent(self,evt):

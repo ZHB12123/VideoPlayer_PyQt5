@@ -10,13 +10,67 @@
 from PyQt5 import QtCore, QtGui, QtWidgets,QtMultimedia,QtMultimediaWidgets
 from PyQt5.QtWidgets import QAbstractItemView,QTableWidgetItem,QApplication
 
+class SubBox():
+    def __init__(self,Form):
+        self.line1=QtWidgets.QLabel(Form)
+        self.line1.setObjectName("line1")
+        self.line1.setStyleSheet("QLabel{background-color:rgba(55, 255, 55, 100%);border:none;}")
+
+        self.line2=QtWidgets.QLabel(Form)
+        self.line2.setObjectName("line2")
+        self.line2.setStyleSheet("QLabel{background-color:rgba(55, 255, 55, 100%);border:none;}")
+
+        self.line3=QtWidgets.QLabel(Form)
+        self.line3.setObjectName("line3")
+        self.line3.setStyleSheet("QLabel{background-color:rgba(55, 255, 55, 100%);border:none;}")
+
+        self.line4=QtWidgets.QLabel(Form)
+        self.line4.setObjectName("line4")
+        self.line4.setStyleSheet("QLabel{background-color:rgba(55, 255, 55, 100%);border:none;}")
+
+    def setParameters(self,x,y,width,height):
+        self.line1.setGeometry(QtCore.QRect(x, y, width, 1))
+        self.line2.setGeometry(QtCore.QRect(x, y+height, width, 1))
+        self.line3.setGeometry(QtCore.QRect(x, y, 1, height))
+        self.line4.setGeometry(QtCore.QRect(x+width, y, 1, height))
+
+class VideoView(QtMultimediaWidgets.QVideoWidget):  #包含在视频上画框的功能
+    def __init__(self,Form):
+        super(VideoView,self).__init__(Form)
+        self.x0 = 0
+        self.y0 = 0
+        self.x1 = 0
+        self.y1 = 0
+        self.flag = False
+        self.SubtitleBox=SubBox(Form)
+        self.SubtitleBox.setParameters(0,0,0,0)
+    #鼠标点击事件
+    def mousePressEvent(self,event):
+        self.flag = True
+        self.x0 = event.x()+self.x()
+        self.y0 = event.y()+self.y()
+        self.SubtitleBox.setParameters(0,0,0,0)
+        print(self.x0,self.y0)
+    #鼠标释放事件
+    def mouseReleaseEvent(self,event):
+        self.flag = False
+        self.update()
+        
+    #鼠标移动事件
+    def mouseMoveEvent(self,event):
+        if self.flag:
+            self.x1 = event.x()+self.x()
+            self.y1 = event.y()+self.y()
+            self.SubtitleBox.setParameters(self.x0,self.y0,self.x1-self.x0,self.y1-self.y0)
+
+
 class Ui_PlayerForm(object):
     def setupUi(self, PlayerForm):
         PlayerForm.setObjectName("PlayerForm")
         desktop = QApplication.desktop()
         PlayerForm.resize(desktop.width()-200, desktop.height()-100)
 
-        self.vw = QtMultimediaWidgets.QVideoWidget(PlayerForm)
+        self.vw = VideoView(PlayerForm)
         self.vw.setGeometry(QtCore.QRect(10, 10, 1280, 720))
         self.vw.setObjectName("graphicsView")
         self.vw.show()
@@ -62,10 +116,11 @@ class Ui_PlayerForm(object):
         self.FileOpen = QtWidgets.QPushButton(PlayerForm)
         self.FileOpen.setGeometry(QtCore.QRect(10, 800, 75, 30))
         self.FileOpen.setObjectName("FileOpen")
-
+        
         self.PlayTime = QtWidgets.QLabel(PlayerForm)
         self.PlayTime.setGeometry(QtCore.QRect(20, 770, 55, 20))
         self.PlayTime.setObjectName("0.00")
+
         #表格
         self.TimeTable = QtWidgets.QTableWidget(PlayerForm)
         self.TimeTable.setGeometry(QtCore.QRect(1300, 10, 220, 750))
